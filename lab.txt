@@ -1,0 +1,193 @@
+1. Hello World
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract HelloWorld {
+    string public message;
+
+    constructor() {
+        message = "Hello, World!";
+    }
+
+    function getMessage() public view returns (string memory) {
+        return message;
+    }
+}
+
+
+
+2. Getter and setter
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract HelloWorld {
+    // State variable to store the message
+    string private message;
+
+    // Constructor to initialize the message when the contract is deployed
+    constructor(string memory initialMessage) {
+        message = initialMessage;
+    }
+
+    // Getter function to return the current message
+    function getMessage() public view returns (string memory) {
+        return message;
+    }
+
+    // Setter function to set a new message
+    function setMessage(string memory newMessage) public {
+        message = newMessage;
+    }
+}
+
+
+3. Array length
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract IntegerArray {
+    // Declare an array to store integers
+    uint[] private numbers;
+
+    // Constructor to initialize the array with some values
+    constructor() {
+        numbers.push(1);
+        numbers.push(2);
+        numbers.push(3);
+        numbers.push(4);
+        numbers.push(5);
+    }
+
+    // Function to get the entire array of integers
+    function getArray() public view returns (uint[] memory) {
+        return numbers;
+    }
+
+    // Function to get the length of the array
+    function getArrayLength() public view returns (uint) {
+        return numbers.length;
+    }
+
+    // Function to add an integer to the array (Setter function)
+    function addToArray(uint newNumber) public {
+        numbers.push(newNumber);
+    }
+}
+
+4. Inheritance
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+// Parent contract - Shape
+contract Shape {
+    // Property to store the name of the shape
+    string public shapeName;
+
+    // Constructor to initialize the shape's name
+    constructor(string memory _name) {
+        shapeName = _name;
+    }
+
+    // Function to get the name of the shape
+    function getShapeName() public view returns (string memory) {
+        return shapeName;
+    }
+}
+
+// Child contract - Circle inherits Shape
+contract Circle is Shape {
+    // Additional property specific to Circle
+    uint public radius;
+
+    // Constructor to initialize the shape name and radius
+    constructor(uint _radius) Shape("Circle") {
+        radius = _radius;
+    }
+
+    // Function to calculate the area of the circle (π * r^2)
+    function getArea() public view returns (uint) {
+        return radius * radius * 314 / 100;  // π approximated as 3.14
+    }
+}
+
+// Child contract - Rectangle inherits Shape
+contract Rectangle is Shape {
+    // Additional properties specific to Rectangle
+    uint public length;
+    uint public width;
+
+    // Constructor to initialize the shape name, length, and width
+    constructor(uint _length, uint _width) Shape("Rectangle") {
+        length = _length;
+        width = _width;
+    }
+
+    // Function to calculate the area of the rectangle (length * width)
+    function getArea() public view returns (uint) {
+        return length * width;
+    }
+}
+
+
+5. Polymorphism
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+// Parent contract - Shape
+contract Shape {
+    string public shapeName;
+
+    // Constructor to initialize the shape's name
+    constructor(string memory _name) {
+        shapeName = _name;
+    }
+
+    // Function to get the name of the shape
+    function getShapeName() public view returns (string memory) {
+        return shapeName;
+    }
+
+    // Function to get the area of the shape (virtual so it can be overridden)
+    function area() public view virtual returns (uint) {
+        return 0; // Default implementation returns 0 for undefined shape area
+    }
+}
+
+// Child contract - Circle inherits Shape
+contract Circle is Shape {
+    uint public radius;
+
+    // Constructor to initialize the shape name and radius
+    constructor(uint _radius) Shape("Circle") {
+        radius = _radius;
+    }
+
+    // Overriding the area function to calculate the area of the circle
+    function area() public view override returns (uint) {
+        return radius * radius * 314 / 100; // π approximated as 3.14
+    }
+}
+
+// Child contract - Rectangle inherits Shape
+contract Rectangle is Shape {
+    uint public length;
+    uint public width;
+
+    // Constructor to initialize the shape name, length, and width
+    constructor(uint _length, uint _width) Shape("Rectangle") {
+        length = _length;
+        width = _width;
+    }
+
+    // Overriding the area function to calculate the area of the rectangle
+    function area() public view override returns (uint) {
+        return length * width;
+    }
+}
+
+
